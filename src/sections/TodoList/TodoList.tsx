@@ -15,10 +15,10 @@ export const TodoList = () => {
 
     useEffect(() => {
         dispatch(getTodos());
-    }, [dispatch])
+    }, [todos])
 
     return (
-    <Box sx={{ flexGrow: 1, maxWidth: 752,  }}>              
+    <Box sx={{ flexGrow: 1, maxWidth: 752, }}>              
         <Typography sx={{ mb: 2 }} variant="h3" component="h1">
         Todo's
         </Typography>
