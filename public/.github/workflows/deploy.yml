@@ -3,11 +3,11 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main 
+      - main
     paths:
-      - 'src/**'       
-      - '.env'         
-      - '.env.*'       
+      - 'src/**'
+      - '.env'
+      - '.env.*'
       - 'vite.config.*'
       - 'package.json'
       - 'tsconfig.json'
@@ -15,10 +15,10 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
+    env:
+      VITE_API_URL: ${{ secrets.VITE_API_URL }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -28,6 +28,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Создать .env.production с секретом
+        run: echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env.production
+
       - name: Build
         run: npm run build
 
@@ -36,3 +39,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+
