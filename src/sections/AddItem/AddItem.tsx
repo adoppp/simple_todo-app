@@ -3,25 +3,35 @@ import { Box, FormControl } from "@mui/material"
 
 import { AddInput } from "@/ui/AddInput"
 import { UiButton } from "@/ui/UiButton/UiButton"
-import { useText } from "@/utils/InputContext";
+import { useText } from "@/utils";
+import { useDispatch } from "react-redux";
+import { addTodo } from "@/storage/operations/todoThunk";
+import type { AppDispatch } from "@/storage/store";
 
-interface AddItemProps {
-    handleOnSubmit: (event: FormEvent<HTMLFormElement>) => void;
-};
-
-export const AddItem: FC<AddItemProps> = ({ handleOnSubmit }) => {
-    const { text, setText } = useText(); 
+export const AddItem: FC = () => {
+    const { text, setText } = useText();
+    const dispatch = useDispatch<AppDispatch>();
 
     const handleChange = (value: string) => {
         setText(value);
     };
+
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+    
+        if (text === "") return;
+
+        dispatch(addTodo(text))
+    
+        setText("");
+    };
     
     return (
-        <Box component="section" sx={{ display: "flex", flexDirection: "column" }}>
-            <FormControl component="form" onSubmit={handleOnSubmit}>
+        <Box component="section" sx={{ display: "flex", flexDirection: "column", width: "100%", maxWidth: "768px" }}>
+            <FormControl component="form" onSubmit={handleSubmit}>
                 <AddInput onChange={handleChange} inputValue={text} isRequered />
                 <UiButton />
             </FormControl>
         </Box>
     )
-}
+};

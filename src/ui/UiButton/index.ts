@@ -1,1 +1,1 @@
-export * from "@/ui/UiButton";
+export * from "@/ui/UiButton/UiButton";

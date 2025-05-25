@@ -1,11 +1,11 @@
-import { createContext, useState, useContext, type ReactNode } from "react";
+import { createContext, useState, type ReactNode } from "react";
 
 interface TextContextType {
     text: string;
     setText: (value: string) => void;
 };
 
-const TextContext = createContext<TextContextType | undefined>(undefined);
+export const TextContext = createContext<TextContextType | undefined>(undefined);
 
 export const TextProvider = ({ children }: { children: ReactNode }) => {
     const [text, setText] = useState("");
@@ -15,12 +15,4 @@ export const TextProvider = ({ children }: { children: ReactNode }) => {
             {children}
         </TextContext.Provider>
     );
-};
-
-export const useText = () => {
-    const context = useContext(TextContext);
-    if (!context) {
-        throw new Error("useText must be used within a TextProvider");
-    }
-    return context;
 };

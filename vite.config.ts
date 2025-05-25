@@ -4,6 +4,7 @@ import path from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: "/simple_todo-app/",
   plugins: [react()],
   resolve: {
     alias: {
@@ -15,6 +16,7 @@ export default defineConfig({
       '@utils': path.resolve(__dirname, './src/utils'),
       '@storage': path.resolve(__dirname, './src/storage'),
       '@theme': path.resolve(__dirname, './src/theme'),
+      '@constants': path.resolve(__dirname, './src/constants'),
     },
   },
 })

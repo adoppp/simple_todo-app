@@ -1,13 +1,12 @@
-import { getTodos } from '@/storage/operations/todoThunk';
+import { deleteTodo, getTodos, toggleComplited } from '@/storage/operations/todoThunk';
 import { todoSelector } from '@/storage/selectors/todoSelector';
+import DeleteIcon from '@mui/icons-material/Delete';
 import type { AppDispatch } from '@/storage/store';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Typography from '@mui/material/Typography';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { IconButton, ListItemText, ListItem, List, Box, Typography, Checkbox } from '@mui/material';
+import type { Todo } from '@/constants/globalConstants';
+import { deepPurple, green, grey, purple } from '@mui/material/colors';
 
 export const TodoList = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -15,26 +14,55 @@ export const TodoList = () => {
 
     useEffect(() => {
         dispatch(getTodos());
-    }, [todos])
+    }, [dispatch]);
+
+    const handleDelete = async (id: string) => {
+        await dispatch(deleteTodo(id));
+    };
+
+    const toggleIsComplited = (todo: Todo) => {
+        const toggledTodo: Todo = {
+            ...todo,
+            isComplited: !todo.isComplited
+        }
+        dispatch(toggleComplited(toggledTodo))
+    };
+
+    const todoItems = todos.map(todo => (
+        <ListItem key={todo.id} 
+        sx={{border: 3, borderColor: purple[700], borderRadius: 2, backgroundColor: "#2a1d49", marginBottom: "12px"}}>
+            <ListItemText sx={{color: grey[50], textDecoration: `${todo.isComplited ? "line-through" : ""}`, textDecorationColor: deepPurple[200] }} primary={todo.title} />
+            <Checkbox sx={{
+                color: grey[50], transition: "color 0.3s ease",
+                "&.Mui-checked": {
+                    color:  green[300]
+                },
+                ":hover": {
+                color: grey[600]
+                },
+                '&.Mui-checked:hover': {
+                    color: green[700], 
+                },
+            }
+            } checked={todo.isComplited} onClick={() => toggleIsComplited(todo)} />
+            <IconButton onClick={() => handleDelete(todo.id)} >
+                <DeleteIcon sx={{
+                    color: purple[400],
+                    transition: "color 0.3s ease",
+                    ":hover": {
+                    color: purple[700]
+                }}}/>
+            </IconButton>
+        </ListItem>
+    ));
 
     return (
-    <Box sx={{ flexGrow: 1, maxWidth: 752, }}>              
-        <Typography sx={{ mb: 2 }} variant="h3" component="h1">
+    <Box sx={{ flexGrow: 1, width: "100%",  maxWidth: "520px", mt: "32px" }}>              
+        <Typography sx={{ mb: 2, textAlign: "center",  fontWeight: 700 }} variant="h3" component="h1">
         Todo's
         </Typography>
-            <List>
-                {
-                    todos.map(todo => (
-                    <ListItem key={todo.id}>
-                        <ListItemText primary={todo.title} />
-                    </ListItem>
-                ))}
-            <ListItem>
-                <ListItemText primary="Single-line item 1" />
-            </ListItem>
-            <ListItem>
-                <ListItemText primary="Single-line item 2" />
-            </ListItem>
+        <List>
+            {todoItems}
         </List>
     </Box>
     )
