@@ -1,10 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { modalReducer, todoReducer } from "@/storage/reducers";
+import { todoReducer } from "@/storage/reducers";
 
 export const store = configureStore({
     reducer: {
         todo: todoReducer,
-        modal: modalReducer,
     }
 });
 
