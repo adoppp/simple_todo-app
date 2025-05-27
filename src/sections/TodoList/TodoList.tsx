@@ -2,13 +2,13 @@ import { deleteTodo, getTodos, toggleComplited } from '@/storage/operations/todo
 import { todoSelector } from '@/storage/selectors/todoSelector';
 import DeleteIcon from '@mui/icons-material/Delete';
 import type { AppDispatch } from '@/storage/store';
-import { useEffect } from 'react';
+import { useEffect, type FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconButton, ListItemText, ListItem, List, Box, Typography, Checkbox } from '@mui/material';
 import type { Todo } from '@/constants/globalConstants';
 import { deepPurple, green, grey, purple } from '@mui/material/colors';
 
-export const TodoList = () => {
+export const TodoList: FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const todos = useSelector(todoSelector);
 
