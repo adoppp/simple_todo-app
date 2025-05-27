@@ -17,7 +17,7 @@ export function App() {
   }
 
   return (
-    <Container component="article" sx={{ paddingTop: "60px", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center"}}>
+    <Container component="article" sx={{ p: "60px 16px", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center"}}>
       <TodoList />
       <UiButton
         label="+"

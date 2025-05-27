@@ -57,7 +57,7 @@ export const TodoList: FC = () => {
     ));
 
     return (
-    <Box sx={{ flexGrow: 1, width: "100%",  maxWidth: "520px", mt: "32px" }}>              
+    <Box sx={{ flexGrow: 1, width: "100%",  maxWidth: "520px" }}>              
         <Typography sx={{ mb: 2, textAlign: "center",  fontWeight: 700 }} variant="h3" component="h1">
         Todo's
         </Typography>
