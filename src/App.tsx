@@ -26,6 +26,7 @@ export function App() {
       <ModalContainer open={open} handleClick={handleClose} title="Add todo">
         <AddItem handleClick={handleClose} />
       </ModalContainer>
+      test
     </Container>
   )
 };
