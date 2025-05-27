@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { addTodo, deleteTodo, getTodos, toggleComplited } from "@/storage/operations/todoThunk";
+import { addTodo, deleteTodo, getTodos, toggleComplited } from "@/storage/operations";
 import type { Todo } from "@/constants/globalConstants";
 
 interface TodoState {
