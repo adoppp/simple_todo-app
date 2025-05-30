@@ -1,9 +1,9 @@
 import { Close } from "@mui/icons-material"
-import { Box, IconButton, Modal, Typography } from "@mui/material"
+import { Box, IconButton, Modal, Typography, type SxProps } from "@mui/material"
 import { indigo, purple } from "@mui/material/colors";
 import type { CSSProperties, FC, ReactNode } from "react";
 
-const style: CSSProperties = {
+const style: SxProps = {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -15,6 +15,11 @@ const style: CSSProperties = {
     padding: "12px",
     borderRadius: "15px",
     border: `solid 2px ${purple[500]}`
+};
+
+const iconButton: SxProps = {
+    position: "absolute",
+    right: "12px"
 };
 
 const styleContent: CSSProperties = {
@@ -36,7 +41,7 @@ export const ModalContainer: FC<ModalContainerProps> = ({ open, children, title,
     return (
         <Modal open={open} onClose={handleClick}>
             <Box component="section" sx={style}>
-                <IconButton onClick={handleClick} sx={{position: "absolute", right: "12px"}}>
+                <IconButton onClick={handleClick} sx={iconButton}>
                     <Close />
                 </IconButton>
                 <Typography sx={{ fontWeight: 700,  mt: "4px" }} variant="h5" component="h3">

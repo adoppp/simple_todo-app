@@ -29,34 +29,34 @@ const menuPaperStyles = {
 const selectMenuTypes: Filter[] = ['All', 'Active', 'Completed'];
 
 export const SelectFilter: FC<SelectFilterProps> = ({ currentFilter, setFilter }) => {
-const handleFilterChange = (e: SelectChangeEvent) => {
-    setFilter(e.target.value as Filter);
-};
+    const handleFilterChange = (e: SelectChangeEvent) => {
+        setFilter(e.target.value as Filter);
+    };
 
-return (
-    <FormControl fullWidth>
-    <InputLabel id="todo-select-label" color="secondary">
-        Filter
-    </InputLabel>
-    <Select
-        labelId="todo-select-label"
-        id="todo-simple-select"
-        color="secondary"
-        value={currentFilter}
-        label="Filter"
-        onChange={handleFilterChange}
-        MenuProps={{
-            PaperProps: {
-            sx: menuPaperStyles,
-            },
-        }}
-    >
-        {selectMenuTypes.map((item) => (
-            <MenuItem key={item} value={item} sx={menuItemStyles}>
-            {item}
-            </MenuItem>
-        ))}
-    </Select>
-    </FormControl>
-);
+    return (
+        <FormControl fullWidth>
+        <InputLabel id="todo-select-label" color="secondary">
+            Filter
+        </InputLabel>
+        <Select
+            labelId="todo-select-label"
+            id="todo-simple-select"
+            color="secondary"
+            value={currentFilter}
+            label="Filter"
+            onChange={handleFilterChange}
+            MenuProps={{
+                PaperProps: {
+                sx: menuPaperStyles,
+                },
+            }}
+        >
+            {selectMenuTypes.map((item) => (
+                <MenuItem key={item} value={item} sx={menuItemStyles}>
+                {item}
+                </MenuItem>
+            ))}
+        </Select>
+        </FormControl>
+    );
 };
