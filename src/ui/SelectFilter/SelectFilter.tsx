@@ -4,10 +4,14 @@ import { type FC } from "react";
 
 interface SelectFilterProps {
     currentFilter: Filter,
-    filterChange: (e: SelectChangeEvent) => void,
+    setFilter: (filter: Filter) => void,
 };
 
-export const SelectFilter: FC<SelectFilterProps> = ({ currentFilter, filterChange}) => {
+export const SelectFilter: FC<SelectFilterProps> = ({ currentFilter, setFilter }) => {
+    const handleFilterChange = (e: SelectChangeEvent) => {
+        setFilter(e.target.value as Filter);
+    };
+
     return ( 
     <FormControl fullWidth>
         <InputLabel id="todo-select-label" color="secondary" >All</InputLabel>
@@ -17,7 +21,7 @@ export const SelectFilter: FC<SelectFilterProps> = ({ currentFilter, filterChang
         color="secondary"
         value={currentFilter}
         label="Age"
-        onChange={filterChange}
+        onChange={handleFilterChange}
         >
             <MenuItem value="All">All</MenuItem>
             <MenuItem value="Active">Active</MenuItem>
