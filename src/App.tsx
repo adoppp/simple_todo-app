@@ -7,20 +7,24 @@ import { ModalContainer } from "./components/ModalContainer/ModalContainer";
 import type { Filter } from "@/constants";
 import { SelectFilter } from "@/ui/SelectFilter";
 import { useInitNotify } from "@/utils/useInitNotify/useInitNotify";
+import { useSelector } from "react-redux";
+import { todoSelector } from "./storage/selectors";
 
 export function App() {
-const [open, setOpen] = useState<boolean>(false);
-const [filter, setFilter] = useState<Filter>("All");
+    const [open, setOpen] = useState<boolean>(false);
+    const [filter, setFilter] = useState<Filter>("All");
+    const todos = useSelector(todoSelector);
+    console.log("🚀 ~ App ~ todos:", todos.length)
 
-useInitNotify(); 
-    
-const handleOpen = () => {
-    setOpen(true)
-};
+    useInitNotify(); 
+        
+    const handleOpen = () => {
+        setOpen(true)
+    };
 
-const handleClose = () => {
-    setOpen(false)
-};
+    const handleClose = () => {
+        setOpen(false)
+    };
 
 return (
     <Container component="article" sx={{ p: "80px 16px", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
@@ -28,8 +32,16 @@ return (
             Todo's
         </Typography>
         <Box sx={{ flexGrow: 1, width: "100%", maxWidth: "520px" }}> 
-            <SelectFilter currentFilter={filter} setFilter={setFilter} />
-            <TodoList filter={filter} />
+            {
+                todos.length ?
+                    <div>
+                        <SelectFilter currentFilter={filter} setFilter={setFilter} />
+                        <TodoList filter={filter} />
+                    </div> : 
+                    <Typography sx={{ mb: 2, textAlign: "center", fontWeight: 700 }} variant="h5" component="h1">
+                        There are no tasks
+                    </Typography>
+            }
         </Box>
         <UiButton
             label="+"
