@@ -1,7 +1,7 @@
 import { useState, type FC, type FormEvent } from "react";
 import { FormControl } from "@mui/material"
 
-import { AddInput } from "@/ui/AddInput"
+import { UiInput } from "@/ui/UiInput"
 import { UiButton } from "@/ui/UiButton/UiButton"
 import { useDispatch } from "react-redux";
 import { addTodo } from "@/storage/operations";
@@ -12,7 +12,7 @@ interface AddItemProps {
 }
 
 export const AddItem: FC<AddItemProps> = ({ handleClick }) => {
-    const [  text, setText ] = useState<string>("");
+    const [ text, setText ] = useState<string>("");
     const dispatch = useDispatch<AppDispatch>();
 
     const handleChange = (value: string) => {
@@ -32,7 +32,7 @@ export const AddItem: FC<AddItemProps> = ({ handleClick }) => {
     return (
         <>
             <FormControl component="form" onSubmit={handleSubmit}>
-                <AddInput onChange={handleChange} inputValue={text} isRequered />
+                <UiInput id="add" label="Add todo" styles={{ paddingBottom: "16px" }} onChange={handleChange} inputValue={text} isRequered />
                 <UiButton label="Add" type="submit" />
             </FormControl>
         </>

@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, type SxProps } from "@mui/material";
 import { purple } from "@mui/material/colors";
 import type { FC, ReactNode } from "react";
 import type { OverridableStringUnion } from "@mui/types";
@@ -8,7 +8,7 @@ interface UiButtonProps {
     label?: string,
     children?: ReactNode,
     type?: "button" | "submit" | "reset",
-    styles?: object,
+    styles?: SxProps,
     variant?: OverridableStringUnion<"contained" | "text" | "outlined", ButtonPropsVariantOverrides>,
     handleClick?: () => void;
 }
