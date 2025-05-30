@@ -6,6 +6,7 @@ import { UiButton } from "@/ui/UiButton/UiButton"
 import { useDispatch } from "react-redux";
 import { addTodo } from "@/storage/operations";
 import type { AppDispatch } from "@/storage/store";
+import { ResponsiveNotify } from "@/utils/ResponsiveNotify/ResponsiveNotify";
 
 interface AddItemProps {
     handleClick: () => void,
@@ -22,11 +23,12 @@ export const AddItem: FC<AddItemProps> = ({ handleClick }) => {
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
     
-        if (text === "") return;
+        if (text === "") return ResponsiveNotify("failure", "Title is empty");
 
         dispatch(addTodo(text))
         setText("");
-        handleClick()
+        handleClick();
+        ResponsiveNotify('success', "Task added");
     };
     
     return (

@@ -6,11 +6,14 @@ import { useState } from "react";
 import { ModalContainer } from "./components/ModalContainer/ModalContainer";
 import type { Filter } from "@/constants";
 import { SelectFilter } from "@/ui/SelectFilter";
+import { useInitNotify } from "@/utils/useInitNotify/useInitNotify";
 
 export function App() {
 const [open, setOpen] = useState<boolean>(false);
 const [filter, setFilter] = useState<Filter>("All");
 
+useInitNotify(); 
+    
 const handleOpen = () => {
     setOpen(true)
 };
@@ -20,7 +23,7 @@ const handleClose = () => {
 };
 
 return (
-    <Container component="article" sx={{ p: "60px 16px", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
+    <Container component="article" sx={{ p: "64px 16px", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
         <Typography sx={{ mb: 2, textAlign: "center", fontWeight: 700 }} variant="h3" component="h1">
             Todo's
         </Typography>
