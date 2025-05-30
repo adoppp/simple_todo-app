@@ -1,5 +1,7 @@
 export interface Todo {
     id: string;
     title: string;
-    isComplited: boolean;
+    isCompleted: boolean;
 }
+
+export type Filter = 'All' | 'Active' | 'Completed';

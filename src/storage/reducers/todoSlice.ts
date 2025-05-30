@@ -29,7 +29,7 @@ const todoSlice = createSlice({
         .addCase(toggleComplited.fulfilled, (state, action) => {
             const todo = state.list.find(todo => todo.id === action.payload.id)
             if (todo) {
-                todo.isComplited = !todo.isComplited;
+                todo.isCompleted = !todo.isCompleted;
             }
         })
     },
