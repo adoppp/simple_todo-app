@@ -4,7 +4,7 @@ import Notiflix from 'notiflix';
 const initNotify = (isMobile: boolean) => {
     Notiflix.Notify.init({
         position: isMobile ? 'center-top' : 'right-top',
-        distance: isMobile ? '0px' : '15px',
+        distance: '16px',
         timeout: 3000,
         fontSize: '14px',
         cssAnimationStyle: 'zoom',

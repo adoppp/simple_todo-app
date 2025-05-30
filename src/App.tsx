@@ -23,7 +23,7 @@ const handleClose = () => {
 };
 
 return (
-    <Container component="article" sx={{ p: "64px 16px", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
+    <Container component="article" sx={{ p: "80px 16px", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
         <Typography sx={{ mb: 2, textAlign: "center", fontWeight: 700 }} variant="h3" component="h1">
             Todo's
         </Typography>
