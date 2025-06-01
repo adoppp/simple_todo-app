@@ -9,10 +9,11 @@ interface TodoListProps {
 };
 
 export const TodoList: FC<TodoListProps> = ({ filter }) => {
-    const { todoListItem } = useTodoList({ filter });
+    const { tasksLeft, todoListItem } = useTodoList({ filter });
 
     return (
-    <Box sx={boxStyles}>              
+        <Box sx={boxStyles}>
+        {tasksLeft()}    
         <List>
             {todoListItem}
         </List>
