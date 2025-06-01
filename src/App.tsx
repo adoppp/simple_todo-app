@@ -1,64 +1,14 @@
-import { Box, Container, Typography, type SxProps } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { AddItem } from "@/sections/AddItem/AddItem";
 import { TodoList } from "@/sections/TodoList";
 import { UiButton } from "@/ui/UiButton";
-import { useEffect, useState } from "react";
 import { ModalContainer } from "./components/ModalContainer/ModalContainer";
-import type { Filter } from "@/constants";
 import { SelectFilter } from "@/ui/SelectFilter";
-import { useInitNotify } from "@/utils/useInitNotify/useInitNotify";
-import { useDispatch, useSelector } from "react-redux";
-import { getTodos, todoSelector, type AppDispatch } from "@/storage";
-
-const containerStyles: SxProps = {
-    p: "80px 16px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center"
-};
-
-const typographyStyles: SxProps = {
-    mb: 2,
-    textAlign: "center",
-};
-
-const boxStyles = {
-    flexGrow: 1,
-    width: "100%",
-    maxWidth: "520px"
-};
-
-const addButtonStyles = {
-    position: "fixed",
-    bottom: "10px",
-    right: "24px",
-    borderRadius: "50%",
-    display: "block",
-    padding: "8px",
-    minWidth: "60px",
-    fontSize: "24px"
-};
+import { containerStyles, typographyStyles, boxStyles, addButtonStyles } from "@/App.styles";
+import { useApp } from "./App.hooks";
 
 export function App() {
-    const [open, setOpen] = useState<boolean>(false);
-    const [filter, setFilter] = useState<Filter>("All");
-    const dispatch = useDispatch<AppDispatch>();
-    const todos = useSelector(todoSelector);
-
-    useEffect(() => {
-        dispatch(getTodos());
-    }, []);
-
-    useInitNotify(); 
-        
-    const handleOpen = () => {
-        setOpen(true)
-    };
-
-    const handleClose = () => {
-        setOpen(false)
-    };
+    const { open, handleOpen, filter, setFilter, handleClose, todos } = useApp();
 
 return (
     <Container component="article" sx={containerStyles}>
