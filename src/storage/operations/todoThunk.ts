@@ -58,3 +58,16 @@ export const toggleComplited = createAsyncThunk(
         }
     }
 );
+
+export const editTask = createAsyncThunk(
+    "todo/editTask",
+    async (data: {id: string, title: string}, thunkAPI) => {
+        try {
+            const response = await instance.put(`todos/${data.id}`, { title: data.title });
+
+            return response.data;
+        } catch (e) {
+            return REJECTED(thunkAPI, e);
+        }
+    }
+);

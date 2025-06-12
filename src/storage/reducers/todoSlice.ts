@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { addTodo, deleteTodo, getTodos, toggleComplited } from "@/storage/operations";
+import { addTodo, deleteTodo, editTask, getTodos, toggleComplited } from "@/storage/operations";
 import type { Todo } from "@/constants/globalConstants";
 
 interface TodoState {
@@ -31,6 +31,10 @@ const todoSlice = createSlice({
             if (todo) {
                 todo.isCompleted = !todo.isCompleted;
             }
+        })
+        .addCase(editTask.fulfilled, (state, action) => {
+            const elem = state.list.findIndex(task => task.id === action.payload.id)
+            state.list[elem] = action.payload;
         })
     },
 });

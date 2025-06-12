@@ -1,12 +1,35 @@
 import type { AppDispatch } from '@/storage/store';
-import { useCallback } from 'react';
+import { useCallback, useState, type FormEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { ResponsiveNotify } from '@/utils/ResponsiveNotify/ResponsiveNotify';
 import type { Todo } from '@/constants';
-import { deleteTodo, toggleComplited } from '@/storage/operations/todoThunk';
+import { deleteTodo, editTask, toggleComplited } from '@/storage/operations/todoThunk';
 
 export const useTodoItem = () => {
+    const [inputValue, setInputValue] = useState<string>("");
+    const [isEdit, setIsEdit] = useState<boolean>(false);
     const dispatch = useDispatch<AppDispatch>();
+
+    const handleEdit = () => {
+        setIsEdit(!isEdit);
+        setInputValue("");
+    };
+
+    const handleChange = (value: string) => {
+        setInputValue(value);
+    };
+
+    const handleSubmit = (event: FormEvent<HTMLFormElement>, task: Todo) => {
+        event.preventDefault();
+    
+        if (inputValue === "") return ResponsiveNotify("failure", "Title is empty");
+        if (inputValue === task.title) return ResponsiveNotify("failure", "It's the same name");
+
+        dispatch(editTask({id: task.id, title: inputValue}))
+        setIsEdit(!isEdit);
+        setInputValue("");
+        ResponsiveNotify('success', "Task added");
+    };
     
     const handleDelete = useCallback(
         async (id: string) => {
@@ -33,5 +56,5 @@ export const useTodoItem = () => {
         [dispatch]
     );
     
-    return { toggleIsComplited, handleDelete };
+    return { toggleIsComplited, handleDelete, handleEdit, handleChange, handleSubmit, inputValue, isEdit };
 };
