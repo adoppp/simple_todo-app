@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { Filter } from "@/constants";
-import { getTodos, todoSelector, type AppDispatch } from "@/storage";
+import { getTodos, loaderGetSelector, loaderSelector, todoSelector, type AppDispatch } from "@/storage";
 import { useInitNotify } from "@/utils/useInitNotify/useInitNotify";
 import { SelectFilter } from "@/ui/SelectFilter";
 import { TodoList } from "@/sections/TodoList";
@@ -13,8 +13,10 @@ export const useApp = () => {
     const [open, setOpen] = useState<boolean>(false);
     const [filter, setFilter] = useState<Filter>("All");
     const [search, setSearch] = useState<string>("");
-    const dispatch = useDispatch<AppDispatch>();
     const todos = useSelector(todoSelector);
+    const isLoading = useSelector(loaderSelector);
+    const isGetLoading = useSelector(loaderGetSelector);
+    const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
         dispatch(getTodos());
@@ -46,5 +48,5 @@ export const useApp = () => {
             </Typography>
     };
 
-    return { open, handleOpen, filter, setFilter, handleClose, tasksLeft, todos };
+    return { open, handleOpen, filter, setFilter, handleClose, tasksLeft, isGetLoading, isLoading, todos };
 };
