@@ -17,11 +17,11 @@ export const listItemTextStyles = {
     styles: (todo: Todo) => ({ color: grey[50], textDecoration: `${todo.isCompleted ? "line-through" : ""}`, textDecorationColor: deepPurple[200] }),
 };
 
-export  const checkboxStyles: SxProps = {
+export const checkboxStyles: SxProps = {
     color: grey[50],
     transition: "color 0.3s ease",
     "&.Mui-checked": {
-        color: green[300]
+        color: green[500]
     },
     ":hover": {
         color: grey[600]
@@ -29,17 +29,26 @@ export  const checkboxStyles: SxProps = {
     '&.Mui-checked:hover': {
         color: green[700],
     },
+    "&.Mui-disabled": {
+        color: grey[800],
+    },
+    "&.Mui-checked.Mui-disabled": {
+        color: grey[800],
+    },
 };
 
 export const deleteIconStyles: SxProps = {
     color: purple[400],
     transition: "color 0.3s ease",
     ":hover": {
-        color: red[900]
+        color: red[900],
     },
     ":active": {
-        color: "darkred"
-    }
+        color: "darkred",
+    },
+    "&.Mui-disabled": {
+        color: grey[800],
+    },
 };
 
 export const editIconStyles: SxProps = {
@@ -50,7 +59,10 @@ export const editIconStyles: SxProps = {
     },
     ":active": {
         color: purple["A100"]
-    }
+    },
+    "&.Mui-disabled": {
+        color: grey[800],
+    },
 };
 
 export const inputStyles: SxProps = {

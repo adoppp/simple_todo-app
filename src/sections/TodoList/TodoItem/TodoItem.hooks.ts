@@ -1,5 +1,5 @@
 import type { AppDispatch } from '@/storage/store';
-import { useCallback, useState, type FormEvent } from 'react';
+import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { ResponsiveNotify } from '@/utils/ResponsiveNotify/ResponsiveNotify';
 import type { Todo } from '@/constants';
@@ -7,6 +7,7 @@ import { deleteTodo, editTask, toggleComplited } from '@/storage/operations/todo
 
 export const useTodoItem = () => {
     const [inputValue, setInputValue] = useState<string>("");
+    const wrapperRef = useRef<HTMLDivElement | null>(null);
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const dispatch = useDispatch<AppDispatch>();
 
@@ -55,6 +56,22 @@ export const useTodoItem = () => {
         },
         [dispatch]
     );
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                wrapperRef.current &&
+                !wrapperRef.current.contains(event.target as Node)
+            ) {
+                setIsEdit(false);
+            }
+        };
     
-    return { toggleIsComplited, handleDelete, handleEdit, handleChange, handleSubmit, inputValue, isEdit };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+    
+    return { toggleIsComplited, handleDelete, handleEdit, handleChange, handleSubmit, wrapperRef, inputValue, isEdit };
 };

@@ -12,35 +12,37 @@ interface TodoItemProps {
 };
 
 export const TodoItem: FC<TodoItemProps> = ({ todo }) => {
-    const { toggleIsComplited, handleDelete, handleEdit, handleChange, handleSubmit, inputValue, isEdit } = useTodoItem();
+    const { toggleIsComplited, handleDelete, handleEdit, handleChange, handleSubmit, wrapperRef, inputValue, isEdit } = useTodoItem();
 
     return (
-        <ListItem sx={listItemStyles}>
-            {isEdit ?
-                <FormControl  component="form" onSubmit={(e) => handleSubmit(e, todo)}>
-                    <UiInput id="title" label={todo.title} onChange={handleChange} inputValue={inputValue} customVariant="outlined" styles={inputStyles} />
-                    <button
-                        type="submit"
-                        style={hiddenButton}
-                        aria-hidden="true"
-                        tabIndex={-1}
-                    >
-                        Submit
-                    </button>
-                </FormControl> :
-                <Typography variant="h6" component="span" sx={listItemTextStyles.styles(todo)}>
-                    {todo.title}
-                </Typography>
-            }
-            <div>
-                <IconButton onClick={handleEdit}>
-                    <EditIcon sx={editIconStyles} />
-                </IconButton>
-                <Checkbox sx={checkboxStyles} checked={todo.isCompleted} onClick={() => toggleIsComplited(todo)} />
-                <IconButton onClick={() => handleDelete(todo.id)} >
-                    <DeleteIcon sx={deleteIconStyles}/>
-                </IconButton>
-            </div>
-        </ListItem>
-    )
-}
+        <div ref={wrapperRef}>
+            <ListItem sx={listItemStyles}>
+                {isEdit ?
+                    <FormControl component="form" onSubmit={(e) => handleSubmit(e, todo)}>
+                        <UiInput id="title" label={todo.title} onChange={handleChange} inputValue={inputValue} customVariant="outlined" styles={inputStyles} />
+                        <button
+                            type="submit"
+                            style={hiddenButton}
+                            aria-hidden="true"
+                            tabIndex={-1}
+                        >
+                            Submit
+                        </button>
+                    </FormControl> :
+                    <Typography variant="h6" component="span" sx={listItemTextStyles.styles(todo)}>
+                        {todo.title}
+                    </Typography>
+                }
+                <div>
+                    <IconButton sx={editIconStyles} onClick={handleEdit} disabled={todo.isCompleted}>
+                        <EditIcon />
+                    </IconButton>
+                    <Checkbox sx={checkboxStyles} checked={todo.isCompleted} onClick={() => toggleIsComplited(todo)} disabled={isEdit} />
+                    <IconButton sx={deleteIconStyles} onClick={() => handleDelete(todo.id)} disabled={isEdit} >
+                        <DeleteIcon />
+                    </IconButton>
+                </div>
+            </ListItem>
+        </div>
+    );
+};
