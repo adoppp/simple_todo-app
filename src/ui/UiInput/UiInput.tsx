@@ -4,7 +4,7 @@ import { TextField, type SxProps, type TextFieldPropsColorOverrides, type TextFi
 
 interface UiInputProps {
     id: string,
-    label: string,
+    label?: string,
     customVariant?: TextFieldVariants,
     color?: OverridableStringUnion<"secondary" | "error" | "primary" | "info" | "success" | "warning", TextFieldPropsColorOverrides>,
     styles?: SxProps,

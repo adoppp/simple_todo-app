@@ -6,10 +6,11 @@ import type { FC } from 'react';
 
 interface TodoListProps {
     filter: Filter,
+    search: string,
 };
 
-export const TodoList: FC<TodoListProps> = ({ filter }) => {
-    const { tasksLeft, todoListItem } = useTodoList({ filter });
+export const TodoList: FC<TodoListProps> = ({ filter, search }) => {
+    const { tasksLeft, todoListItem } = useTodoList({ filter, search });
 
     return (
         <Box sx={boxStyles}>
