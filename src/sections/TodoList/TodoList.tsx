@@ -13,10 +13,10 @@ export const TodoList: FC<TodoListProps> = ({ filter }) => {
 
     return (
         <Box sx={boxStyles}>
-        {tasksLeft()}    
-        <List>
-            {todoListItem}
-        </List>
-    </Box>
-    )
-}
+            {tasksLeft()}
+            <List>
+                {todoListItem}
+            </List>
+        </Box>
+    );
+};
