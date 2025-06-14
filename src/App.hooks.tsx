@@ -37,7 +37,7 @@ export const useApp = () => {
     const tasksLeft = () => {
         return todos.length ?
             <div>
-                <UiInput id="search" onChange={handleSearch} inputValue={search} styles={{width: "100%", mb: "24px"}} />
+                <UiInput id="search" label="Search" onChange={handleSearch} inputValue={search} styles={{width: "100%", mb: "24px"}} />
                 <SelectFilter currentFilter={filter} setFilter={setFilter} />
                 <TodoList filter={filter} search={search} />
             </div> :
