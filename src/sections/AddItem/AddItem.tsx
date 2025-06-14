@@ -14,7 +14,7 @@ export const AddItem: FC<AddItemProps> = ({ handleClick }) => {
 
     return (
         <>
-            <FormControl component="form" onSubmit={handleSubmit}>
+            <FormControl component="form" onSubmit={handleSubmit} sx={{padding: "0 16px"}}>
                 <UiInput id="add" label="Add todo" styles={{ paddingBottom: "16px" }} onChange={handleChange} inputValue={text} isRequered />
                 <UiButton label="Add" type="submit" />
             </FormControl>

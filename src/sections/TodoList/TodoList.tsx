@@ -1,6 +1,6 @@
 import { List, Box } from '@mui/material';
 import type { Filter } from '@/constants';
-import { boxStyles } from '@sections/TodoList/TodoList.styles';
+import { boxStyles, listStyles } from '@sections/TodoList/TodoList.styles';
 import { useTodoList } from './TodoList.hooks';
 import type { FC } from 'react';
 
@@ -15,7 +15,7 @@ export const TodoList: FC<TodoListProps> = ({ filter, search }) => {
     return (
         <Box sx={boxStyles}>
             {tasksLeft()}
-            <List>
+            <List sx={listStyles}>
                 {todoListItem}
             </List>
         </Box>

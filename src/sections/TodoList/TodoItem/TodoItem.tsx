@@ -1,8 +1,8 @@
-import { Checkbox, FormControl, IconButton, ListItem, Typography } from "@mui/material";
+import { Box, Checkbox, FormControl, IconButton, ListItem, Typography } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import type { Todo } from "@/constants/globalConstants";
 import type { FC } from "react";
-import { checkboxStyles, deleteIconStyles, editIconStyles, listItemStyles, listItemTextStyles, inputStyles, hiddenButton } from "@sections/TodoList/TodoItem/TodoItem.styles";
+import { checkboxStyles, deleteIconStyles, editIconStyles, listItemStyles, listItemTextStyles, inputStyles, hiddenButton, iconsBox, containerStyles } from "@sections/TodoList/TodoItem/TodoItem.styles";
 import { useTodoItem } from "./TodoItem.hooks";
 import EditIcon from '@mui/icons-material/Edit';
 import { UiInput } from "@/ui/UiInput";
@@ -15,7 +15,7 @@ export const TodoItem: FC<TodoItemProps> = ({ todo }) => {
     const { toggleIsComplited, handleDelete, handleEdit, handleChange, handleSubmit, wrapperRef, inputValue, isEdit } = useTodoItem();
 
     return (
-        <div ref={wrapperRef}>
+        <div ref={wrapperRef} style={containerStyles}>
             <ListItem sx={listItemStyles}>
                 {isEdit ?
                     <FormControl component="form" onSubmit={(e) => handleSubmit(e, todo)}>
@@ -33,7 +33,7 @@ export const TodoItem: FC<TodoItemProps> = ({ todo }) => {
                         {todo.title}
                     </Typography>
                 }
-                <div>
+                <Box sx={iconsBox}>
                     <IconButton sx={editIconStyles} onClick={handleEdit} disabled={todo.isCompleted}>
                         <EditIcon />
                     </IconButton>
@@ -41,7 +41,7 @@ export const TodoItem: FC<TodoItemProps> = ({ todo }) => {
                     <IconButton sx={deleteIconStyles} onClick={() => handleDelete(todo.id)} disabled={isEdit} >
                         <DeleteIcon />
                     </IconButton>
-                </div>
+                </Box>
             </ListItem>
         </div>
     );

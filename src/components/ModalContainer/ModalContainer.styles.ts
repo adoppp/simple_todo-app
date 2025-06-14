@@ -2,7 +2,7 @@ import type { SxProps } from "@mui/material";
 import { indigo, purple } from "@mui/material/colors";
 import type { CSSProperties } from "react";
 
-export const style: SxProps = {
+export const boxStyle: SxProps = {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -13,7 +13,7 @@ export const style: SxProps = {
     backgroundColor: indigo[200],
     padding: "12px",
     borderRadius: "15px",
-    border: `solid 2px ${purple[500]}`
+    border: `solid 2px ${purple[500]}`,
 };
 
 export const iconButton: SxProps = {

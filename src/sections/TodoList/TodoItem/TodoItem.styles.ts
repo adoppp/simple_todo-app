@@ -10,11 +10,24 @@ export const listItemStyles: SxProps = {
     backgroundColor: "#2a1d49",
     marginBottom: "12px",
     display: "flex",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    "@media (max-width:475px)": {
+        flexDirection: "column",
+        alignItems: "flex-start",
+    },
+};
+
+export const containerStyles = {
+    minWidth: "310px",
+    width: "100%",
 };
 
 export const listItemTextStyles = {
-    styles: (todo: Todo) => ({ color: grey[50], textDecoration: `${todo.isCompleted ? "line-through" : ""}`, textDecorationColor: deepPurple[200] }),
+    styles: (todo: Todo): SxProps => ({
+        color: grey[50],
+        textDecoration: `${todo.isCompleted ? "line-through" : ""}`,
+        textDecorationColor: deepPurple[200],
+    }),
 };
 
 export const checkboxStyles: SxProps = {
@@ -101,4 +114,12 @@ export const hiddenButton: CSSProperties = {
     width: '1px',
     height: '1px',
     overflow: 'hidden',
+};
+
+export const iconsBox = {
+    // display: "flex",
+    // "@media (max-width:475px)":
+    // {
+        
+    // },
 };
