@@ -49,7 +49,7 @@ export const useTodoItem = () => {
             try {
                 const toggledTodo: Todo = { ...todo, isCompleted: !todo.isCompleted };
                 await dispatch(toggleComplited(toggledTodo));
-                ResponsiveNotify(`${toggledTodo.isCompleted ? "success" : "info"}`, `Task ${toggledTodo.title} is ${toggledTodo.isCompleted ? 'completed' : 'active'}`);
+                ResponsiveNotify(`${toggledTodo.isCompleted ? "success" : "info"}`, `Task "${toggledTodo.title}" is ${toggledTodo.isCompleted ? 'completed' : 'active'}`);
             } catch (e) {
                 ResponsiveNotify("failure", "Error to toggle your todo");
             }
