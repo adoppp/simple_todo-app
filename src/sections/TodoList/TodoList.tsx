@@ -14,7 +14,7 @@ export const TodoList: FC<TodoListProps> = ({ filter, search }) => {
 
     return (
         <Box sx={boxStyles}>
-            {tasksLeft()}
+            {tasksLeft}
             <List sx={listStyles}>
                 {todoListItem}
             </List>

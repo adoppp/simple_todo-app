@@ -27,6 +27,7 @@ export const listItemTextStyles = {
         color: grey[50],
         textDecoration: `${todo.isCompleted ? "line-through" : ""}`,
         textDecorationColor: deepPurple[200],
+        maxWidth: "320px"
     }),
 };
 
