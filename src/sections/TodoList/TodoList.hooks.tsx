@@ -16,37 +16,53 @@ export const useTodoList = ({ filter, search }: useTodoListProps) => {
     const debouncedSearch = useDebounce(search, 300);
 
     const tasksLeft = useMemo(() => {
-        const todosLeft = todos.filter(todo => !todo.isCompleted);
-        return todosLeft.length > 0 ? (
-            <Typography variant="h6" component="span">
-                {`${todosLeft.length} task${todosLeft.length > 1 ? "s" : ""} left`}
-            </Typography>
-        ) : null;
+        return todos.filter(todo => !todo.isCompleted).length;
     }, [todos]);
+    
+    const filteredTodos = useMemo((): Todo[] => {
+        let result = todos;
 
-    const filteredTodo: Todo[] = useMemo(() => {
-        if (filter === 'Active') return todos.filter(todo => !todo.isCompleted);
-        if (filter === 'Completed') return todos.filter(todo => todo.isCompleted);
-        return todos;
-    }, [todos, filter]);
-
-    const searchTodo = useMemo(() => {
-        if (debouncedSearch !== "") return filteredTodo.filter(todo => todo.title.toLowerCase().includes(debouncedSearch.toLowerCase()));
-
-        return filteredTodo;
-    }, [filteredTodo, debouncedSearch]);
-
-    const todoListItem = useMemo(() => {
-        if (debouncedSearch !== "" && searchTodo.length === 0) {
-            return <Typography variant='h5' sx={{ textAlign: "center" }}>
-                {`There are no tasks with name`}
-                <span style={{ fontWeight: 700 }}>{`"${debouncedSearch}"`}</span>
-            </Typography>
+        if (filter === 'Active') {
+            result = result.filter(todo => !todo.isCompleted);
+        } else if (filter === 'Completed') {
+            result = result.filter(todo => todo.isCompleted);
         }
-        return searchTodo.map(todo => (
-            <TodoItem key={todo.id} todo={todo} />
-        ));
-    }, [searchTodo, debouncedSearch]);
 
-    return { tasksLeft, todoListItem };
+        const trimmedSearch = debouncedSearch.trim().toLowerCase();
+        if (trimmedSearch) {
+            result = result.filter(todo =>
+                todo.title.toLowerCase().includes(trimmedSearch)
+            );
+        }  
+        return result;
+    }, [todos, filter, debouncedSearch]);
+
+    const filteredListItem = useMemo(() => {
+        if (filteredTodos.length === 0) {
+            if (debouncedSearch) {
+                return (
+                    <Typography variant="h5" sx={{ textAlign: 'center' }}>
+                        There are no tasks with name{' '}
+                        <span style={{ fontWeight: 700 }}>{`"${debouncedSearch}"`}</span>
+                    </Typography>
+                );
+            }
+    
+            const emptyMessages = {
+                Active: 'No active tasks',
+                Completed: 'No completed tasks',
+                All: 'No tasks available',
+            };
+    
+            return (
+                <Typography variant="h5" sx={{ textAlign: 'center' }}>
+                    {emptyMessages[filter]}
+                </Typography>
+            );
+        }
+    
+        return filteredTodos.map(todo => <TodoItem key={todo.id} todo={todo} />);
+    }, [filteredTodos, debouncedSearch, filter]);
+
+    return { tasksLeft, filteredListItem, debouncedSearch };
 };
