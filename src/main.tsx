@@ -5,7 +5,7 @@ import { ThemeProvider, CssBaseline } from '@mui/material'
 import { theme } from '@/theme/theme.ts'
 import { App } from './App.tsx'
 import { Provider } from 'react-redux';
-import { store } from '@/storage/store.ts';
+import { store } from '@store/store.ts';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

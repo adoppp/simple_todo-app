@@ -8,7 +8,7 @@ import { LoaderBox } from "./components/LoaderBox";
 import { Loader } from "./components/Loader/Loader";
 
 export function App() {
-    const { open, handleOpen, handleClose, tasksLeft, isGetLoading, isLoading } = useApp();
+    const { open, handleOpen, handleClose, tasksLeft, isLoading } = useApp();
 
     return (
         <>
@@ -17,12 +17,13 @@ export function App() {
                     Todo's
                 </Typography>
                 <Box sx={boxStyles}>
-                    {isGetLoading ? <LoaderBox/> : tasksLeft()}
+                    {isLoading ? <LoaderBox/> : tasksLeft()}
                 </Box>
                 <UiButton
                     label="+"
                     styles={addButtonStyles}
-                    handleClick={handleOpen} />
+                    handleClick={handleOpen} 
+                />
                 <ModalContainer open={open} handleClick={handleClose} title="Add todo">
                     <AddItem handleClick={handleClose} />
                 </ModalContainer>

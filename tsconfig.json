@@ -13,7 +13,7 @@
       "@sections/*": ["sections/*"],
       "@ui/*": ["ui/*"],
       "@utils/*": ["utils/*"],
-      "@storage/*": ["storage/*"],
+      "@store/*": ["store/*"],
       "@theme/*": ["theme/*"],
       "@constants/*": ["constants/*"],
     }

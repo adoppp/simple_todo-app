@@ -14,7 +14,7 @@ export default defineConfig({
       '@sections': path.resolve(__dirname, './src/sections'),
       '@ui': path.resolve(__dirname, './src/ui'),
       '@utils': path.resolve(__dirname, './src/utils'),
-      '@storage': path.resolve(__dirname, './src/storage'),
+      '@store': path.resolve(__dirname, './src/store'),
       '@theme': path.resolve(__dirname, './src/theme'),
       '@constants': path.resolve(__dirname, './src/constants'),
     },

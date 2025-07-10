@@ -1,5 +1,5 @@
 import type { Filter, Todo } from '@/constants';
-import { todoSelector } from '@/storage/selectors/todoSelector';
+import { useGetTodosQuery } from '@store/services/todosApi';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { TodoItem } from '@sections/TodoList/TodoItem/TodoItem';
@@ -12,15 +12,15 @@ interface useTodoListProps {
 };
 
 export const useTodoList = ({ filter, search }: useTodoListProps) => { 
-    const todos = useSelector(todoSelector);
+    const { data = [], isLoading } = useGetTodosQuery({});
     const debouncedSearch = useDebounce(search, 300);
 
     const tasksLeft = useMemo(() => {
-        return todos.filter(todo => !todo.isCompleted).length;
-    }, [todos]);
+        return data.filter(todo => !todo.isCompleted).length;
+    }, [data]);
     
     const filteredTodos = useMemo((): Todo[] => {
-        let result = todos;
+        let result = data;
 
         if (filter === 'Active') {
             result = result.filter(todo => !todo.isCompleted);
@@ -35,7 +35,7 @@ export const useTodoList = ({ filter, search }: useTodoListProps) => {
             );
         }  
         return result;
-    }, [todos, filter, debouncedSearch]);
+    }, [data, filter, debouncedSearch]);
 
     const filteredListItem = useMemo(() => {
         if (filteredTodos.length === 0) {
