@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+import type { Todo } from "@/constants/global";
+
 const baseUrl = import.meta.env.VITE_API_URL;
 
 export const todosApi = createApi({
@@ -7,7 +9,7 @@ export const todosApi = createApi({
     tagTypes: ["Todo"],
     baseQuery: fetchBaseQuery({ baseUrl }),
     endpoints: (builder) => ({
-        getTodos: builder.query({
+        getTodos: builder.query<Todo[], void>({
             query: () => ("todos"),
             providesTags: (result) =>
                 result
@@ -17,23 +19,23 @@ export const todosApi = createApi({
                         ]
                     : [{ type: 'Todo', id: 'LIST' }],
         }),
-        addTodo: builder.mutation({
+        addTodo: builder.mutation<Todo, string>({
             query: (title: string) => ({
                 url: "todos",
                 method: "POST",
-                title
+                body: { title }
             }),
             invalidatesTags: [{ type: "Todo", id: "LIST" }],
         }),
-        deleteTodo: builder.mutation({
+        deleteTodo: builder.mutation<void, string>({
             query: (id: string) => ({
                 url: `todos/${id}`,
                 method: "DELETE",
             }),
             invalidatesTags: [{ type: "Todo", id: "LIST" }],
         }),
-        putTodo: builder.mutation({
-            query: (data: { id: string, title: string, isCompleted: boolean }) => ({
+        putTodo: builder.mutation<Todo, Todo>({
+            query: (data) => ({
                 url: `todos/${data.id}`,
                 method: "PUT",
                 body: { title: data.title, isCompleted: data.isCompleted }

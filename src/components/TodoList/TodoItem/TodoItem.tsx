@@ -1,11 +1,22 @@
+import type { FC } from "react";
 import { Box, Checkbox, FormControl, IconButton, ListItem, Typography } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
-import type { Todo } from "@/constants/globalConstants";
-import type { FC } from "react";
-import { checkboxStyles, deleteIconStyles, editIconStyles, listItemStyles, listItemTextStyles, inputStyles, hiddenButton, iconsBox, containerStyles } from "@sections/TodoList/TodoItem/TodoItem.styles";
-import { useTodoItem } from "./TodoItem.hooks";
 import EditIcon from '@mui/icons-material/Edit';
-import { UiInput } from "@/ui/UiInput";
+
+import type { Todo } from "@/constants/global";
+import { 
+    checkboxStyles, 
+    deleteIconStyles, 
+    editIconStyles, 
+    listItemStyles, 
+    listItemTextStyles, 
+    inputStyles, 
+    hiddenButton, 
+    iconsBox, 
+    containerStyles 
+} from "@/components/TodoList/TodoItem/TodoItem.styles";
+import { useTodoItem } from "@components/TodoList/TodoItem/TodoItem.hooks";
+import { UiInput } from "@/ui/UiInput/UiInput";
 
 interface TodoItemProps {
     todo: Todo,

@@ -1,9 +1,10 @@
-import type { Filter, Todo } from '@/constants';
-import { useGetTodosQuery } from '@store/services/todosApi';
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { TodoItem } from '@sections/TodoList/TodoItem/TodoItem';
 import { Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
+
+import type { Filter, Todo } from '@/constants/global';
+import { todosApi } from '@store/services/todosApi';
+import { TodoItem } from '@/components/TodoList/TodoItem/TodoItem';
 import { useDebounce } from '@/utils/useDebounce';
 
 interface useTodoListProps {
@@ -12,25 +13,25 @@ interface useTodoListProps {
 };
 
 export const useTodoList = ({ filter, search }: useTodoListProps) => { 
-    const { data = [], isLoading } = useGetTodosQuery({});
+    const data: Todo[] = useSelector(todosApi.endpoints.getTodos.select()).data!;
     const debouncedSearch = useDebounce(search, 300);
 
     const tasksLeft = useMemo(() => {
-        return data.filter(todo => !todo.isCompleted).length;
+        return data.filter((todo: Todo) => !todo.isCompleted).length;
     }, [data]);
     
     const filteredTodos = useMemo((): Todo[] => {
         let result = data;
 
         if (filter === 'Active') {
-            result = result.filter(todo => !todo.isCompleted);
+            result = result.filter((todo: Todo) => !todo.isCompleted);
         } else if (filter === 'Completed') {
-            result = result.filter(todo => todo.isCompleted);
+            result = result.filter((todo: Todo) => todo.isCompleted);
         }
 
         const trimmedSearch = debouncedSearch.trim().toLowerCase();
         if (trimmedSearch) {
-            result = result.filter(todo =>
+            result = result.filter((todo: Todo) =>
                 todo.title.toLowerCase().includes(trimmedSearch)
             );
         }  
@@ -64,5 +65,5 @@ export const useTodoList = ({ filter, search }: useTodoListProps) => {
         return filteredTodos.map(todo => <TodoItem key={todo.id} todo={todo} />);
     }, [filteredTodos, debouncedSearch, filter]);
 
-    return { tasksLeft, filteredListItem, debouncedSearch };
+    return { tasksLeft, filteredListItem };
 };

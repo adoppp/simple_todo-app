@@ -1,6 +1,7 @@
-import { useDispatch } from "react-redux";
-import { ResponsiveNotify } from "@/utils/ResponsiveNotify/ResponsiveNotify";
 import { useState, type FormEvent } from "react";
+
+import { ResponsiveNotify } from "@/utils/ResponsiveNotify/ResponsiveNotify";
+import { useAddTodoMutation } from "@/store/services/todosApi";
 
 interface useAddItemProps {
     handleClick: () => void,
@@ -8,7 +9,7 @@ interface useAddItemProps {
 
 export const useAddItem = ({ handleClick }: useAddItemProps) => {
     const [text, setText] = useState<string>("");
-    // const dispatch = useDispatch<AppDispatch>();
+    const [ addTodo ] = useAddTodoMutation();
 
     const handleChange = (value: string) => {
         setText(value);
@@ -19,7 +20,7 @@ export const useAddItem = ({ handleClick }: useAddItemProps) => {
     
         if (text === "") return ResponsiveNotify("failure", "Title is empty");
 
-        // dispatch(addTodo(text))
+        addTodo(text)
         setText("");
         handleClick();
         ResponsiveNotify('success', "Task added");
