@@ -1,13 +1,8 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { api } from "@store/services/api";
 
 import type { Todo } from "@/constants/global";
 
-const baseUrl = import.meta.env.VITE_API_URL;
-
-export const todosApi = createApi({
-    reducerPath: "todoApi",
-    tagTypes: ["Todo"],
-    baseQuery: fetchBaseQuery({ baseUrl }),
+export const todosApi = api.injectEndpoints({
     endpoints: (builder) => ({
         getTodos: builder.query<Todo[], void>({
             query: () => ("todos"),

@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 import { Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
 
 import type { Filter, Todo } from '@/constants/global';
 import { todosApi } from '@store/services/todosApi';
 import { TodoItem } from '@/components/TodoList/TodoItem/TodoItem';
 import { useDebounce } from '@/utils/useDebounce';
+import { useAppSelector } from '@/store/redux.hooks';
 
 interface useTodoListProps {
     filter: Filter,
@@ -13,7 +13,7 @@ interface useTodoListProps {
 };
 
 export const useTodoList = ({ filter, search }: useTodoListProps) => { 
-    const data: Todo[] = useSelector(todosApi.endpoints.getTodos.select()).data!;
+    const data: Todo[] = useAppSelector(todosApi.endpoints.getTodos.select()).data!;
     const debouncedSearch = useDebounce(search, 300);
 
     const tasksLeft = useMemo(() => {
