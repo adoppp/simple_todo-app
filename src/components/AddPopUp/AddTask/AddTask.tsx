@@ -1,15 +1,15 @@
 import { type FC } from "react";
 import { FormControl } from "@mui/material"
 
-import { UiInput } from "@/ui/UiInput"
+import { UiInput } from "@/ui/UiInput/UiInput"
 import { UiButton } from "@/ui/UiButton/UiButton"
-import { useAddItem } from "./AddItem.hooks";
+import { useAddItem } from "@components/AddPopUp/AddTask/AddTask.hooks";
 
 interface AddItemProps {
     handleClick: () => void,
 }
 
-export const AddItem: FC<AddItemProps> = ({ handleClick }) => {
+export const AddTask: FC<AddItemProps> = ({ handleClick }) => {
     const { text, handleChange, handleSubmit } = useAddItem({ handleClick });
 
     return (

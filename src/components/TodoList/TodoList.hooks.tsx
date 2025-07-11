@@ -1,10 +1,11 @@
-import type { Filter, Todo } from '@/constants';
-import { todoSelector } from '@/storage/selectors/todoSelector';
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { TodoItem } from '@sections/TodoList/TodoItem/TodoItem';
 import { Typography } from '@mui/material';
+
+import type { Filter, Todo } from '@/constants/global';
+import { todosApi } from '@store/services/todosApi';
+import { TodoItem } from '@/components/TodoList/TodoItem/TodoItem';
 import { useDebounce } from '@/utils/useDebounce';
+import { useAppSelector } from '@/store/redux.hooks';
 
 interface useTodoListProps {
     filter: Filter,
@@ -12,30 +13,30 @@ interface useTodoListProps {
 };
 
 export const useTodoList = ({ filter, search }: useTodoListProps) => { 
-    const todos = useSelector(todoSelector);
+    const data: Todo[] = useAppSelector(todosApi.endpoints.getTodos.select()).data!;
     const debouncedSearch = useDebounce(search, 300);
 
     const tasksLeft = useMemo(() => {
-        return todos.filter(todo => !todo.isCompleted).length;
-    }, [todos]);
+        return data.filter((todo: Todo) => !todo.isCompleted).length;
+    }, [data]);
     
     const filteredTodos = useMemo((): Todo[] => {
-        let result = todos;
+        let result = data;
 
         if (filter === 'Active') {
-            result = result.filter(todo => !todo.isCompleted);
+            result = result.filter((todo: Todo) => !todo.isCompleted);
         } else if (filter === 'Completed') {
-            result = result.filter(todo => todo.isCompleted);
+            result = result.filter((todo: Todo) => todo.isCompleted);
         }
 
         const trimmedSearch = debouncedSearch.trim().toLowerCase();
         if (trimmedSearch) {
-            result = result.filter(todo =>
+            result = result.filter((todo: Todo) =>
                 todo.title.toLowerCase().includes(trimmedSearch)
             );
         }  
         return result;
-    }, [todos, filter, debouncedSearch]);
+    }, [data, filter, debouncedSearch]);
 
     const filteredListItem = useMemo(() => {
         if (filteredTodos.length === 0) {
@@ -64,5 +65,5 @@ export const useTodoList = ({ filter, search }: useTodoListProps) => {
         return filteredTodos.map(todo => <TodoItem key={todo.id} todo={todo} />);
     }, [filteredTodos, debouncedSearch, filter]);
 
-    return { tasksLeft, filteredListItem, debouncedSearch };
+    return { tasksLeft, filteredListItem };
 };

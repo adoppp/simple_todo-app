@@ -1,4 +1,4 @@
-import type { Filter } from "@/constants";
+import type { Filter } from "@/constants/global";
 import type { SelectChangeEvent } from "@mui/material";
 
 export const useSelectFilter  = () => { 

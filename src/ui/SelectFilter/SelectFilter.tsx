@@ -1,4 +1,4 @@
-import type { Filter } from "@/constants/globalConstants";
+import type { Filter } from "@/constants/global";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { type FC } from "react";
 import { menuItemStyles, menuPaperStyles } from "@/ui/SelectFilter/SelectFilter.styles";

@@ -1,15 +1,15 @@
-import type { AppDispatch } from '@/storage/store';
 import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
-import { useDispatch } from 'react-redux';
+
+import type { Todo } from '@/constants/global';
 import { ResponsiveNotify } from '@/utils/ResponsiveNotify/ResponsiveNotify';
-import type { Todo } from '@/constants';
-import { deleteTodo, editTask, toggleComplited } from '@/storage/operations/todoThunk';
+import { useDeleteTodoMutation, usePutTodoMutation } from '@/store/services/todosApi';
 
 export const useTodoItem = () => {
     const [inputValue, setInputValue] = useState<string>("");
-    const wrapperRef = useRef<HTMLDivElement | null>(null);
     const [isEdit, setIsEdit] = useState<boolean>(false);
-    const dispatch = useDispatch<AppDispatch>();
+    const wrapperRef = useRef<HTMLDivElement | null>(null);
+    const [ deleteTodo ] = useDeleteTodoMutation();
+    const [ putTodo ] = usePutTodoMutation();
 
     const handleEdit = () => {
         setIsEdit(!isEdit);
@@ -26,7 +26,7 @@ export const useTodoItem = () => {
         if (inputValue === "") return ResponsiveNotify("failure", "Title is empty");
         if (inputValue === task.title) return ResponsiveNotify("failure", "It's the same name");
 
-        dispatch(editTask({id: task.id, title: inputValue}))
+        putTodo({id: task.id, title: inputValue, isCompleted: task.isCompleted})
         setIsEdit(!isEdit);
         setInputValue("");
         ResponsiveNotify('success', "Task added");
@@ -35,26 +35,26 @@ export const useTodoItem = () => {
     const handleDelete = useCallback(
         async (id: string) => {
             try {
-                await dispatch(deleteTodo(id));
+                await deleteTodo(id);
                 ResponsiveNotify('success', "Task deleted");
             } catch (e) {
                 ResponsiveNotify("failure", "We can't delete your task, please try again");
             }
         },
-        [dispatch]
+        [deleteTodo]
     );
     
     const toggleIsComplited = useCallback(
         async (todo: Todo) => {
             try {
                 const toggledTodo: Todo = { ...todo, isCompleted: !todo.isCompleted };
-                await dispatch(toggleComplited(toggledTodo));
+                await putTodo(toggledTodo);
                 ResponsiveNotify(`${toggledTodo.isCompleted ? "success" : "info"}`, `Task "${toggledTodo.title}" is ${toggledTodo.isCompleted ? 'completed' : 'active'}`);
             } catch (e) {
                 ResponsiveNotify("failure", "Error to toggle your todo");
             }
         },
-        [dispatch]
+        [putTodo]
     );
 
     useEffect(() => {

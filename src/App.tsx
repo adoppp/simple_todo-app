@@ -1,14 +1,12 @@
 import { Box, Container, Typography } from "@mui/material";
-import { AddItem } from "@/sections/AddItem/AddItem";
-import { UiButton } from "@/ui/UiButton";
-import { ModalContainer } from "./components/ModalContainer/ModalContainer";
-import { containerStyles, typographyStyles, boxStyles, addButtonStyles } from "@/App.styles";
-import { useApp } from "./App.hooks";
-import { LoaderBox } from "./components/LoaderBox";
-import { Loader } from "./components/Loader/Loader";
+
+import { useApp } from "@/App.hooks";
+import { containerStyles, typographyStyles, boxStyles } from "@/App.styles";
+import { AddPopUp } from "@/components/AddPopUp/AddPopUp";
+import { MainSection } from "@/sections/MainSection/MainSection";
 
 export function App() {
-    const { open, handleOpen, handleClose, tasksLeft, isGetLoading, isLoading } = useApp();
+    const { } = useApp();
 
     return (
         <>
@@ -17,17 +15,10 @@ export function App() {
                     Todo's
                 </Typography>
                 <Box sx={boxStyles}>
-                    {isGetLoading ? <LoaderBox/> : tasksLeft()}
+                    <MainSection />
                 </Box>
-                <UiButton
-                    label="+"
-                    styles={addButtonStyles}
-                    handleClick={handleOpen} />
-                <ModalContainer open={open} handleClick={handleClose} title="Add todo">
-                    <AddItem handleClick={handleClose} />
-                </ModalContainer>
+                <AddPopUp />
             </Container>
-            {isLoading && <Loader />}
         </>
     );
 };

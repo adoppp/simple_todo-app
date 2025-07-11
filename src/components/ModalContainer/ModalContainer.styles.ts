@@ -1,6 +1,6 @@
+import type { CSSProperties } from "react";
 import type { SxProps } from "@mui/material";
 import { indigo, purple } from "@mui/material/colors";
-import type { CSSProperties } from "react";
 
 export const boxStyle: SxProps = {
     position: 'absolute',

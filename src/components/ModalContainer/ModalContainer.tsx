@@ -1,6 +1,7 @@
+import type { FC, ReactNode } from "react";
 import { Close } from "@mui/icons-material"
 import { Box, IconButton, Modal, Typography } from "@mui/material"
-import type { FC, ReactNode } from "react";
+
 import { iconButton, boxStyle, styleContent } from "@components/ModalContainer/ModalContainer.styles";
 
 interface ModalContainerProps {

@@ -1,7 +1,8 @@
-import type { Todo } from "@/constants";
-import type { SxProps } from "@mui/material";
-import { deepPurple, green, grey, indigo, purple, red } from "@mui/material/colors";
 import type { CSSProperties } from "react";
+import type { SxProps } from "@mui/material";
+
+import type { Todo } from "@/constants/global";
+import { deepPurple, green, grey, indigo, purple, red } from "@mui/material/colors";
 
 export const listItemStyles: SxProps = {
     border: 3,

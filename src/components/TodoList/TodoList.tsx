@@ -1,8 +1,9 @@
-import { List, Box, Typography } from '@mui/material';
-import type { Filter } from '@/constants';
-import { boxStyles, listStyles } from '@sections/TodoList/TodoList.styles';
-import { useTodoList } from './TodoList.hooks';
 import type { FC } from 'react';
+import { List, Box, Typography } from '@mui/material';
+
+import type { Filter } from '@/constants/global';
+import { boxStyles, listStyles } from '@/components/TodoList/TodoList.styles';
+import { useTodoList } from '@components/TodoList/TodoList.hooks';
 
 interface TodoListProps {
     filter: Filter,
